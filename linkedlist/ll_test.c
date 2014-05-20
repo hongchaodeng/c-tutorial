@@ -52,8 +52,7 @@ void test_new_data(){
 int main(int argc, char *argv[])
 {
     test_new_ll();
-
-
+    test_new_data();
 
     printf("Succeeded in passing all tests\n");
     return 0;
