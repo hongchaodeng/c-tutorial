@@ -6,3 +6,6 @@ gao.o: gao.c
 
 cao.o: cao.S
 	gcc -m32 -c cao.S
+
+clean:
+	rm *.o all
