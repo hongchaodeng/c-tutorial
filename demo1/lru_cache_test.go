@@ -26,18 +26,18 @@ func TestBasics(t *testing.T) {
 }
 
 func BenchmarkCacheMissOn1KSize(b *testing.B) {
-	benchmarkPut(b, 1000)
+	benchmarkCacheMiss(b, 1000)
 }
 func BenchmarkCacheMissOn1MSize(b *testing.B) {
-	benchmarkPut(b, 1000000)
+	benchmarkCacheMiss(b, 1000000)
 }
 func BenchmarkCacheMissOn10MSize(b *testing.B) {
-	benchmarkPut(b, 10000000)
+	benchmarkCacheMiss(b, 10000000)
 }
 
-// benchmarkPut tests how long it takes to put a new key
+// benchmarkCacheMiss tests how long it takes to put a new key
 // when LRU cache is full
-func benchmarkPut(b *testing.B, size int) {
+func benchmarkCacheMiss(b *testing.B, size int) {
 	cache := newLRUCache(size)
 	for i := 0; i < size; i++ {
 		cache.Put(testData[i].url, testData[i].body)
