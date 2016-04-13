@@ -42,6 +42,7 @@ func (lc *lruCache) Put(url string, body string) {
 func (lc *lruCache) evictOne() {
 	var toEvict string
 	var evictItem *item
+	// find the item with earliest timestamp, O(n)
 	for url, item := range lc.urlToItem {
 		if evictItem == nil || item.timestamp.Before(evictItem.timestamp) {
 			toEvict = url

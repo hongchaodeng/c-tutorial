@@ -14,9 +14,10 @@ type testDataType struct {
 
 var testData []testDataType
 
-const testDataSize = 10001000
-
-// const testDataSize = 1001000
+const (
+	testDataSize     = 10001000
+	testPerfDataSize = 1001000
+)
 
 func init() {
 	testData = make([]testDataType, testDataSize)
@@ -30,7 +31,7 @@ func init() {
 }
 
 func TestPutPerf(t *testing.T) {
-	log.Printf("load testing... putting %d keys", testDataSize)
+	log.Printf("load testing... putting %d keys", testPerfDataSize)
 	start := time.Now()
 	size := 1000000
 	cache := newLRUCache(size)
