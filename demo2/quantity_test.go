@@ -22,10 +22,13 @@ func init() {
 }
 
 func ExampleQuantity() {
+	// This is to show how we parse value from user config into "Quantity" API.
+	// Quantity provides the ability to transform into different units.
+	// So we can get value in basic unit, milli unit, or others.
 	q := MustParse("1Ki")
 	fmt.Println(q.Value())
 	q = MustParse("1")
-	fmt.Println(q.MilliValue()) // 1000m
+	fmt.Println(q.MilliValue())
 	q = MustParse("1000m")
 	fmt.Println(q.Value())
 	// Output:
@@ -35,6 +38,10 @@ func ExampleQuantity() {
 }
 
 func BenchmarkMilliValue(b *testing.B) {
+	// This is to simulate the same problem we have previously in aggregating values.
+	// Basically we have serious latency here like 30ms.
+	// After optimization, it's <1ms.
+	// We use it to reduce scheduling latency from 57ms to 25ms, doubling scheduling rate.
 	for bi := 0; bi < b.N; bi++ {
 		for i := 0; i < testDataSize/numOfPodsPerNode; i++ {
 			c := int64(0)
