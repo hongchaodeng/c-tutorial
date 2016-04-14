@@ -1,34 +1,12 @@
 package demo1
 
 import (
-	"fmt"
 	"log"
 	"testing"
 	"time"
 )
 
-type testDataType struct {
-	url  string
-	body string
-}
-
-var testData []testDataType
-
-const (
-	testDataSize     = 10001000
-	testPerfDataSize = 1001000
-)
-
-func init() {
-	testData = make([]testDataType, testDataSize)
-	for i := 0; i < testDataSize; i++ {
-		url := fmt.Sprintf("www.fake.com/%d", i)
-		testData[i] = testDataType{
-			url:  url,
-			body: fmt.Sprintf("This is page <b>%s</b>!", url),
-		}
-	}
-}
+const testPerfDataSize = 1001000
 
 func TestPutPerf(t *testing.T) {
 	log.Printf("load testing... putting %d keys", testPerfDataSize)
