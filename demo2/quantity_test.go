@@ -9,8 +9,9 @@ import (
 var testQuantities []Quantity
 
 const (
-	testDataSize     = 30000
 	numOfPodsPerNode = 30
+	numOfNodes       = 1000
+	testDataSize     = numOfNodes * numOfPodsPerNode
 )
 
 func init() {
@@ -43,7 +44,8 @@ func BenchmarkMilliValue(b *testing.B) {
 	// After optimization, it's <1ms.
 	// We use it to reduce scheduling latency from 57ms to 25ms, doubling scheduling rate.
 	for bi := 0; bi < b.N; bi++ {
-		for i := 0; i < testDataSize/numOfPodsPerNode; i++ {
+		for i := 0; i < numOfNodes; i++ {
+			// aggregate resources per node
 			c := int64(0)
 			for j := 0; j < numOfPodsPerNode; j++ {
 				c += testQuantities[i].MilliValue()
@@ -54,7 +56,7 @@ func BenchmarkMilliValue(b *testing.B) {
 
 func BenchmarkInt(b *testing.B) {
 	for bi := 0; bi < b.N; bi++ {
-		for i := 0; i < testDataSize/numOfPodsPerNode; i++ {
+		for i := 0; i < numOfNodes; i++ {
 			c := 0
 			for j := 0; j < numOfPodsPerNode; j++ {
 				c += i*numOfPodsPerNode + j
