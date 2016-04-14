@@ -1,23 +1,23 @@
 package demo1
 
 import (
-	"log"
+	"fmt"
 	"testing"
 	"time"
 )
 
-const testPerfDataSize = 1001000
-
+// TestPutPerf load tests
 func TestPutPerf(t *testing.T) {
-	log.Printf("load testing... putting %d keys", testPerfDataSize)
-	start := time.Now()
+	fmt.Printf("load testing on 1M size cache\n")
 	size := 1000000
 	cache := newLRUCache(size)
+	start := time.Now()
 	for i, td := range testData {
-		if i == size {
-			log.Printf("Time to fill up cache (size %d): %v", size, time.Since(start))
+		if i%10000 == 0 {
+			end := time.Now()
+			fmt.Printf("Num: %d, Used time: %v\n", i, end.Sub(start))
+			start = end
 		}
 		cache.Put(td.url, td.body)
 	}
-	log.Println("Total time:", time.Since(start))
 }

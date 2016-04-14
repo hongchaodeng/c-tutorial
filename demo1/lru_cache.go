@@ -33,10 +33,14 @@ func (lc *lruCache) Get(url string) (string, bool) {
 }
 
 func (lc *lruCache) Put(url string, body string) {
-	if len(lc.urlToItem) == lc.size {
+	if lc.Full() {
 		lc.evictOne()
 	}
 	lc.set(url, body)
+}
+
+func (lc *lruCache) Full() {
+	return len(lc.urlToItem) == lc.size
 }
 
 func (lc *lruCache) evictOne() {

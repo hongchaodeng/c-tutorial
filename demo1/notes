@@ -1,0 +1,7 @@
+
+// f, err := os.Create("prof2.out")
+// if err != nil {
+// 	panic(err)
+// }
+// pprof.StartCPUProfile(f)
+// defer pprof.StopCPUProfile()
