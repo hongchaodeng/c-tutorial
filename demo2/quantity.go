@@ -243,21 +243,15 @@ func (q *Quantity) MilliValue() int64 {
 	if q.Amount == nil {
 		return 0
 	}
+	// 0.1m -> 1m
+	// math precision
+
 	tmp := &inf.Dec{}
 	return tmp.Round(tmp.Mul(q.Amount, decThousand), 0, inf.RoundUp).UnscaledBig().Int64()
-	// return q.ScaledValue(Milli)
+	// return scaledValue(q.Amount.UnscaledBig(), int(q.Amount.Scale()), 3)
 }
 
 // infScale adapts a Scale value to an inf.Scale value.
 func (s Scale) infScale() inf.Scale {
 	return inf.Scale(-s) // inf.Scale is upside-down
-}
-
-// ScaledValue returns the value of ceil(q * 10^scale); this could overflow an int64.
-// To detect overflow, call Value() first and verify the expected magnitude.
-func (q *Quantity) ScaledValue(scale Scale) int64 {
-	if q.Amount == nil {
-		return 0
-	}
-	return scaledValue(q.Amount.UnscaledBig(), int(q.Amount.Scale()), int(scale.infScale()))
 }

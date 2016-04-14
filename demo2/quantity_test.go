@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+
+	"speter.net/go/exp/math/dec/inf"
 )
+
+var _ = inf.Dec{}
 
 var testQuantities []Quantity
 
@@ -54,13 +58,29 @@ func BenchmarkMilliValue(b *testing.B) {
 	}
 }
 
-func BenchmarkInt(b *testing.B) {
-	for bi := 0; bi < b.N; bi++ {
-		for i := 0; i < numOfNodes; i++ {
-			c := 0
-			for j := 0; j < numOfPodsPerNode; j++ {
-				c += i*numOfPodsPerNode + j
-			}
-		}
-	}
-}
+// func BenchmarkInt(b *testing.B) {
+// 	for bi := 0; bi < b.N; bi++ {
+// 		for i := 0; i < numOfNodes; i++ {
+// 			c := 0
+// 			for j := 0; j < numOfPodsPerNode; j++ {
+// 				c += i*numOfPodsPerNode + j
+// 			}
+// 		}
+// 	}
+// }
+
+// func BenchmarkLargeValuePool(b *testing.B) {
+// 	s := big.NewInt(math.MaxInt64)
+// 	s.Mul(s, big.NewInt(1000))
+// 	for bi := 0; bi < b.N; bi++ {
+// 		scaledValue(s, 10, 3)
+// 	}
+// }
+
+// func BenchmarkLargeValueInf(b *testing.B) {
+// 	tmp := &inf.Dec{}
+// 	q := MustParse("1")
+// 	for bi := 0; bi < b.N; bi++ {
+// 		tmp.Round(tmp.Mul(q.Amount, decThousand), 0, inf.RoundUp).UnscaledBig().Int64()
+// 	}
+// }
