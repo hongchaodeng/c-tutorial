@@ -12,6 +12,9 @@ type item struct {
 	timestamp time.Time
 }
 
+// newLRUCache returns a cache with given size.
+// "size" is the number of items that could be stored in the cache.
+// If more item is added, LRU eviction will happen.
 func newLRUCache(size int) *lruCache {
 	return &lruCache{
 		size:      size,
