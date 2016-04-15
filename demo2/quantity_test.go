@@ -32,14 +32,14 @@ func ExampleQuantity() {
 	// So we can get value in basic unit, milli unit, or others.
 	q := MustParse("1Ki")
 	fmt.Println(q.Value())
-	q = MustParse("1")
-	fmt.Println(q.MilliValue())
 	q = MustParse("1000m")
 	fmt.Println(q.Value())
+	q = MustParse("1")
+	fmt.Println(q.MilliValue())
 	// Output:
 	// 1024
-	// 1000
 	// 1
+	// 1000
 }
 
 func BenchmarkMilliValue(b *testing.B) {
