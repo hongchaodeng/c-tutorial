@@ -243,9 +243,8 @@ func (q *Quantity) MilliValue() int64 {
 	if q.Amount == nil {
 		return 0
 	}
-	// 0.1m -> 1m
-	// math precision
-
+	// Numbers larger or more precise will be capped or rounded up.
+	// (E.g.: 0.1m will rounded up to 1m.)
 	tmp := &inf.Dec{}
 	return tmp.Round(tmp.Mul(q.Amount, decThousand), 0, inf.RoundUp).UnscaledBig().Int64()
 	// return scaledValue(q.Amount.UnscaledBig(), int(q.Amount.Scale()), 3)
