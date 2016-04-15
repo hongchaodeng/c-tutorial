@@ -39,7 +39,7 @@ func (lc *lruCache) Put(url string, body string) {
 	lc.set(url, body)
 }
 
-func (lc *lruCache) Full() {
+func (lc *lruCache) Full() bool {
 	return len(lc.urlToItem) == lc.size
 }
 

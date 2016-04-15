@@ -47,9 +47,14 @@ func TestBasics(t *testing.T) {
 	}
 }
 
+// ---------------------------------
+// 问一下大家知不知道 go tool pprof
+// ---------------------------------
+
 func BenchmarkCacheFull1KSize(b *testing.B) {
 	benchmarkCacheFull(b, 1000)
 }
+
 func BenchmarkCacheFull1MSize(b *testing.B) {
 	benchmarkCacheFull(b, 1000000)
 }
@@ -64,11 +69,10 @@ func benchmarkCacheFull(b *testing.B, size int) {
 	for i := 0; i < size; i++ {
 		cache.Put(testData[i].url, testData[i].body)
 	}
-	c := size
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
+		c := (i + size) % testDataSize
 		cache.Put(testData[c].url, testData[c].body)
-		c = (c + 1) % testDataSize
 	}
 }
